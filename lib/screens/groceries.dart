@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shopping_list/data/categories.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:shopping_list/data/categories.dart';
 import 'package:shopping_list/models/grocery_item.dart';
 import 'package:shopping_list/screens/new_item.dart';
 import 'package:shopping_list/widgets/grocery_list_item.dart';
@@ -28,10 +29,7 @@ class _GroceriesScreenState extends State<GroceriesScreen> {
   }
 
   void _loadItems() async {
-    final url = Uri.https(
-      'flutter-prep-1b93c-default-rtdb.firebaseio.com',
-      'shopping-list.json',
-    );
+    final url = Uri.https(dotenv.env['firebaseAPI']!, 'shopping-list.json');
 
     try {
       final response = await http.get(url);
@@ -98,7 +96,7 @@ class _GroceriesScreenState extends State<GroceriesScreen> {
     });
 
     final url = Uri.https(
-      'flutter-prep-1b93c-default-rtdb.firebaseio.com',
+      dotenv.env['firebaseAPI']!,
       'shopping-list/${item.id}.json',
     );
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shopping_list/data/categories.dart';
@@ -32,10 +33,7 @@ class _NewItemScreenState extends State<NewItemScreen> {
         _isLoading = true;
       });
 
-      final url = Uri.https(
-        'flutter-prep-1b93c-default-rtdb.firebaseio.com',
-        'shopping-list.json',
-      );
+      final url = Uri.https(dotenv.env['firebaseAPI']!, 'shopping-list.json');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
